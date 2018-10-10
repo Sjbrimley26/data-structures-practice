@@ -61,7 +61,6 @@ Node.prototype.getSmallestNode = function() {
 // need to change so that you can remove the root.
 Node.prototype.removeChild = function(data) {
   if (this.contains(data) == false) {
-    console.log(data, " not in tree.");
     return false;
   } else {
      if (this.data > data) {
@@ -92,6 +91,10 @@ Node.prototype.removeChild = function(data) {
       } else {
         this.right.removeChild(data);
       }
+    } else {
+      const smallest = this.right.getSmallestNode();
+      this.data = smallest.data;
+      this.right.removeChild(smallest.data);
     }
     return true;
   }
@@ -160,7 +163,6 @@ const convertSortedArrayToBST = (tree, arr) => {
 
 convertSortedArrayToBST(tree, samplePoints);
 
-tree.removeNode(45);
+tree.removeNode(50);
 console.log("Tree Nodes", tree.length);
 tree.inOrder();
-console.log(tree.root.right.getSmallestNode());
