@@ -58,7 +58,6 @@ Node.prototype.getSmallestNode = function() {
   }
 };
 
-// need to change so that you can remove the root.
 Node.prototype.removeChild = function(data) {
   if (this.contains(data) == false) {
     return false;
@@ -144,9 +143,7 @@ const Tree = function() {
 
 };
 
-const tree = new Tree();
-
-const convertSortedArrayToBST = (tree, arr) => {
+const convertSortedArrayToBST = (arr, tree = new Tree()) => {
   if (arr.length === 1) {
     tree.insert(arr[0]);
     return;
@@ -157,11 +154,12 @@ const convertSortedArrayToBST = (tree, arr) => {
   tree.insert(arr[mid]);
   const leftArray = arr.slice(0, mid);
   const rightArray = arr.slice(mid + 1);
-  convertSortedArrayToBST(tree, leftArray);
-  convertSortedArrayToBST(tree, rightArray);
+  convertSortedArrayToBST(leftArray, tree);
+  convertSortedArrayToBST(rightArray, tree);
+  return tree;
 };
 
-convertSortedArrayToBST(tree, samplePoints);
+const tree = convertSortedArrayToBST(samplePoints);
 
 tree.removeNode(50);
 console.log("Tree Nodes", tree.length);
