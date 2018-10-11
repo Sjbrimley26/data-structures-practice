@@ -116,6 +116,7 @@ Node.prototype.breadthFirst = function() {
 const Tree = function() {
   this.root = null;
   this.length = 0;
+  
   this.insert = function(data) {
     this.length += 1;
     if (this.root) {
@@ -175,8 +176,6 @@ const convertSortedArrayToBST = (arr, tree = new Tree()) => {
 
 const tree = convertSortedArrayToBST(samplePoints);
 
-tree.removeNode(50);
+tree.removeNode(75);
 console.log("Tree Nodes", tree.length);
 tree.inOrder();
-
-tree.root.breadthFirst();
