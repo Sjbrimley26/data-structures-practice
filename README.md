@@ -2,3 +2,4 @@
 Doing some data structure practice with JS.
 
 * Binary Search Tree
+* Queue
