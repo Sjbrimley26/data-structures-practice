@@ -1,3 +1,5 @@
+const { Queue } = require("./Queue");
+
 const samplePoints = [];
 for (let i = 0; i < 100; i += 5) {
   samplePoints.push(i);
@@ -99,10 +101,21 @@ Node.prototype.removeChild = function(data) {
   }
 };
 
+Node.prototype.breadthFirst = function() {
+  const queue = new Queue();
+  queue.push(this);
+  console.log("Breadth first search:");
+  while (!queue.isEmpty()) {
+    let currentNode = queue.pop();
+    console.log(currentNode.data);
+    currentNode.left && queue.push(currentNode.left);
+    currentNode.right && queue.push(currentNode.right);
+  }
+};
+
 const Tree = function() {
   this.root = null;
   this.length = 0;
-
   this.insert = function(data) {
     this.length += 1;
     if (this.root) {
@@ -129,6 +142,7 @@ const Tree = function() {
   };
 
   this.inOrder = function() {
+    console.log("Depth-first in-order search");
     if (!this.root) {
       return null;
     }
@@ -164,3 +178,5 @@ const tree = convertSortedArrayToBST(samplePoints);
 tree.removeNode(50);
 console.log("Tree Nodes", tree.length);
 tree.inOrder();
+
+tree.root.breadthFirst();
