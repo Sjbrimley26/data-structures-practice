@@ -7,6 +7,9 @@ const MinHeap = function() {
   this.heap = [];
 
   this.insert = function(val) {
+    if (typeof val !== 'number') {
+      return new Error("Only insert numbers");
+    }
     if (this.heap.length === 0) {
       this.heap.push(val);
       return this;
@@ -28,7 +31,7 @@ const MinHeap = function() {
 };
 
 const getParent = index => {
-  return Math.floor((index - 1)/ 2);
+  return Math.floor((index - 1) / 2);
 };
 
 const getLeftChild = index => {
@@ -39,7 +42,6 @@ const getRightChild = index => {
   return index * 2 + 2;
 };
 
-const heap = new MinHeap();
-samplePoints.forEach(point => heap.insert(point));
-heap.insert(2);
-console.log(heap.heap);
+module.exports = {
+  MinHeap
+};
