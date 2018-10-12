@@ -20,6 +20,7 @@ const DoublyLinkedList = function() {
         } else {
             newNode.prev = this.last;
             newNode.next = this.head;
+            this.last.next = newNode;
             this.last = newNode;
             this.head.prev = this.last;
         }
@@ -27,16 +28,22 @@ const DoublyLinkedList = function() {
     };
 
     this.prepend = function(data) {
+        if (this.length === 0) {
+          return this.append(data);
+        }
+        this.length++;
         const newNode = new Node(data);
         newNode.next = this.head;
         newNode.prev = this.last;
+        this.head.prev = newNode;
         this.head = newNode;
+        this.last.next = newNode;
         return this;
     };
 
     this.insertAt = function(data, index) {
         if (index >= this.length - 1) {
-            return this.append(data);
+          return this.append(data);
         }
         if (index == 0) {
            return this.prepend(data); 
@@ -44,7 +51,7 @@ const DoublyLinkedList = function() {
         const newNode = new Node(data);
         this.length++;
         let currentVal = this.head.next;
-        for (let i = 0; i < index - 1; i++) {
+        for (let i = 0; i < index; i++) {
             currentVal = currentVal.next;
         }
         newNode.next = currentVal;
@@ -56,7 +63,7 @@ const DoublyLinkedList = function() {
 
     this.forEach = function(fn) {
         let currentVal = this.head;
-        for (let i = 0; i < this.length - 1; i++) {
+        for (let i = 0; i < this.length; i++) {
             fn(currentVal.data);
             currentVal = currentVal.next;
         }
@@ -74,6 +81,8 @@ list
     .append(1)
     .append(2)
     .prepend(6)
-    .insertAt(3, 1);
+    .prepend(7)
+    .insertAt(3, 1)
+    .insertAt(4, 2);
 
 list.print();
