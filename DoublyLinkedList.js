@@ -45,9 +45,6 @@ const DoublyLinkedList = function() {
         if (index >= this.length - 1) {
           return this.append(data);
         }
-        if (index == 0) {
-           return this.prepend(data); 
-        }
         const newNode = new Node(data);
         this.length++;
         let currentVal = this.head.next;
@@ -76,13 +73,14 @@ const DoublyLinkedList = function() {
 };
 
 const list = new DoublyLinkedList();
+
 list
     .append(0)
     .append(1)
     .append(2)
     .prepend(6)
     .prepend(7)
-    .insertAt(3, 1)
+    .insertAt(3, 0)
     .insertAt(4, 2);
 
 list.print();
