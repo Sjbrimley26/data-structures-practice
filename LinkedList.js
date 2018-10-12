@@ -1,5 +1,3 @@
-const { MinHeap } = require("./Heap");
-
 const nodeProto = {
   data: null,
   next: null
@@ -65,7 +63,7 @@ const LinkedList = function() {
     return this;
   };
 
-  this.get = function(index) {
+  this.peekAtIndex = function(index) {
     if (index == 0) {
       return this.head.data;
     }
@@ -82,7 +80,7 @@ const LinkedList = function() {
     return currentVal.data;
   };
 
-  this.delete = function(index) {
+  this.popAtIndex = function(index) {
     if (index >= this.length) {
       return new Error("Out of range");
     }
