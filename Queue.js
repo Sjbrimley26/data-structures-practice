@@ -1,14 +1,16 @@
 const Node = function(data) {
   this.data = data;
   this.next = null;
-}
+};
 
 const Queue = function() {
   this.front = null;
   this.rear = null;
+  this.length = 0;
 
   this.push = function(data) {
     if (!data) return this;
+    this.length++;
     if (this.front == null) {
       this.front = new Node(data);
       this.rear = this.front;
@@ -23,6 +25,7 @@ const Queue = function() {
     if (this.front == null) {
       return null;
     } else {
+      this.length--;
       const returnedValue = this.front.data;
       if (this.front.next) {
         this.front = this.front.next;

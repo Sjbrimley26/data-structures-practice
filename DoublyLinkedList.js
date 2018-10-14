@@ -4,7 +4,7 @@ const Node = function(data) {
     this.prev = null;
 };
 
-const DoublyLinkedList = function() {
+const DoublyLinkedCircularList = function() {
     this.head = null;
     this.last = null;
     this.length = 0;
@@ -41,7 +41,7 @@ const DoublyLinkedList = function() {
         return this;
     };
 
-    this.insertAt = function(data, index) {
+    this.insert = function(data, index) {
         if (index >= this.length - 1) {
           return this.append(data);
         }
@@ -72,7 +72,7 @@ const DoublyLinkedList = function() {
 
 };
 
-const list = new DoublyLinkedList();
+const list = new DoublyLinkedCircularList();
 
 list
     .append(0)
@@ -80,7 +80,7 @@ list
     .append(2)
     .prepend(6)
     .prepend(7)
-    .insertAt(3, 0)
-    .insertAt(4, 2);
+    .insert(3, 0)
+    .insert(4, 2);
 
 list.print();

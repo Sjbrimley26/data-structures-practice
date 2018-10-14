@@ -17,6 +17,10 @@ Stack.prototype.print = function() {
     this.items.print();
 };
 
+Stack.prototype.isEmpty = function() {
+  return this.items.length === 0;
+};
+
 const stack = new Stack();
 stack.push("pie").push("pot").push("chicken");
 stack.print();

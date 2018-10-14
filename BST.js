@@ -46,10 +46,10 @@ Node.prototype.contains = function(data) {
   }
 };
 
-Node.prototype.inOrder = function() {
-  this.left && this.left.inOrder();
+Node.prototype.printInOrder = function() {
+  this.left && this.left.printInOrder();
   console.log(this.data);
-  this.right && this.right.inOrder();
+  this.right && this.right.printInOrder();
 };
 
 Node.prototype.getSmallestNode = function() {
@@ -101,7 +101,7 @@ Node.prototype.removeChild = function(data) {
   }
 };
 
-Node.prototype.breadthFirst = function() {
+Node.prototype.printBreadthFirst = function() {
   const queue = new Queue();
   queue.push(this);
   console.log("Breadth first search:");
@@ -142,19 +142,19 @@ const Tree = function() {
     return this.root.contains(data);
   };
 
-  this.inOrder = function() {
+  this.printInOrder = function() {
     console.log("Depth-first in-order search");
     if (!this.root) {
       return null;
     }
-    this.root.inOrder();
+    this.root.printInOrder();
   };
 
   this.removeNode = function(data) {
     if (this.root.removeChild(data)) {
       this.length--;
     }
-  }
+  };
 
 };
 
@@ -178,4 +178,5 @@ const tree = convertSortedArrayToBST(samplePoints);
 
 tree.removeNode(75);
 console.log("Tree Nodes", tree.length);
-tree.inOrder();
+tree.printInOrder();
+tree.root.printBreadthFirst();
