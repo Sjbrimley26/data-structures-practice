@@ -1,14 +1,14 @@
-const Node = function(data) {
+const Node = function (data) {
   this.data = data;
   this.next = null;
 };
 
-const Queue = function() {
+const Queue = function () {
   this.front = null;
   this.rear = null;
   this.length = 0;
 
-  this.push = function(data) {
+  this.push = function (data) {
     if (!data) return this;
     this.length++;
     if (this.front == null) {
@@ -21,7 +21,7 @@ const Queue = function() {
     return this;
   };
 
-  this.pop = function() {
+  this.pop = function () {
     if (this.front == null) {
       return null;
     } else {
@@ -36,10 +36,9 @@ const Queue = function() {
     }
   };
 
-  this.isEmpty = function() {
+  this.isEmpty = function () {
     return this.front == null;
   };
-
 };
 
 module.exports = { Queue };

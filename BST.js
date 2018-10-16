@@ -5,13 +5,13 @@ for (let i = 0; i < 100; i += 5) {
   samplePoints.push(i);
 }
 
-const Node = function(data) {
+const Node = function (data) {
   this.data = data;
   this.right = null;
   this.left = null;
 };
 
-Node.prototype.addChild = function(data) {
+Node.prototype.addChild = function (data) {
   if (this.data > data) {
     if (this.left) {
       this.left.addChild(data);
@@ -27,8 +27,8 @@ Node.prototype.addChild = function(data) {
   }
 };
 
-Node.prototype.contains = function(data) {
-  if (this.data == data) {
+Node.prototype.contains = function (data) {
+  if (this.data === data) {
     return true;
   }
   if (this.data > data) {
@@ -46,13 +46,13 @@ Node.prototype.contains = function(data) {
   }
 };
 
-Node.prototype.printInOrder = function() {
+Node.prototype.printInOrder = function () {
   this.left && this.left.printInOrder();
   console.log(this.data);
   this.right && this.right.printInOrder();
 };
 
-Node.prototype.getSmallestNode = function() {
+Node.prototype.getSmallestNode = function () {
   if (this.left) {
     return this.left.getSmallestNode();
   } else {
@@ -60,12 +60,12 @@ Node.prototype.getSmallestNode = function() {
   }
 };
 
-Node.prototype.removeChild = function(data) {
-  if (this.contains(data) == false) {
+Node.prototype.removeChild = function (data) {
+  if (this.contains(data) === false) {
     return false;
   } else {
-     if (this.data > data) {
-      if (this.left.data == data) {
+    if (this.data > data) {
+      if (this.left.data === data) {
         if (this.left.left) {
           this.left.data = this.left.left.data;
           this.left.left = this.left.left.left;
@@ -79,7 +79,7 @@ Node.prototype.removeChild = function(data) {
         this.left.removeChild(data);
       }
     } else if (this.data < data) {
-      if (this.right.data == data) {
+      if (this.right.data === data) {
         if (this.right.left) {
           this.right.data = this.right.left.data;
           this.right.left = this.right.left.left;
@@ -101,23 +101,23 @@ Node.prototype.removeChild = function(data) {
   }
 };
 
-Node.prototype.printBreadthFirst = function() {
+Node.prototype.printBreadthFirst = function () {
   const queue = new Queue();
   queue.push(this);
   console.log("Breadth first search:");
   while (!queue.isEmpty()) {
-    let currentNode = queue.pop();
+    const currentNode = queue.pop();
     console.log(currentNode.data);
     currentNode.left && queue.push(currentNode.left);
     currentNode.right && queue.push(currentNode.right);
   }
 };
 
-const Tree = function() {
+const Tree = function () {
   this.root = null;
   this.length = 0;
-  
-  this.insert = function(data) {
+
+  this.insert = function (data) {
     this.length += 1;
     if (this.root) {
       if (this.root.data > data) {
@@ -138,11 +138,11 @@ const Tree = function() {
     }
   };
 
-  this.contains = function(data) {
+  this.contains = function (data) {
     return this.root.contains(data);
   };
 
-  this.printInOrder = function() {
+  this.printInOrder = function () {
     console.log("Depth-first in-order search");
     if (!this.root) {
       return null;
@@ -150,12 +150,11 @@ const Tree = function() {
     this.root.printInOrder();
   };
 
-  this.removeNode = function(data) {
+  this.removeNode = function (data) {
     if (this.root.removeChild(data)) {
       this.length--;
     }
   };
-
 };
 
 const convertSortedArrayToBST = (arr, tree = new Tree()) => {

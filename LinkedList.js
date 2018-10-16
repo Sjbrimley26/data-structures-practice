@@ -3,7 +3,7 @@ const nodeProto = {
   next: null
 };
 
-const Node = function(data) {
+const Node = function (data) {
   return Object.assign(
     Object.create(nodeProto),
     {
@@ -12,12 +12,12 @@ const Node = function(data) {
   );
 };
 
-const LinkedList = function() {
+const LinkedList = function () {
   this.head = null;
   this.tail = null;
   this.length = 0;
 
-  this.prepend = function(data) {
+  this.prepend = function (data) {
     this.length++;
     const newNode = Node(data);
     if (!this.head) {
@@ -30,7 +30,7 @@ const LinkedList = function() {
     return this;
   };
 
-  this.append = function(data) {
+  this.append = function (data) {
     this.length++;
     const newNode = Node(data);
     if (!this.head) {
@@ -43,14 +43,14 @@ const LinkedList = function() {
     return this;
   };
 
-  this.insert = function(data, index) {
-    if (index == 0) {
+  this.insert = function (data, index) {
+    if (index === 0) {
       return this.prepend(data);
     }
     if (index >= this.length) {
       return this.append(data);
     }
-    
+
     let currentVal = this.head;
     for (let i = 0; i < index - 1; i++) {
       currentVal = currentVal.next;
@@ -63,15 +63,15 @@ const LinkedList = function() {
     return this;
   };
 
-  this.peekAtIndex = function(index) {
-    if (index == 0) {
+  this.peekAtIndex = function (index) {
+    if (index >= this.length) {
+      return null;
+    }
+    if (index === 0) {
       return this.head.data;
     }
-    if (index == this.length - 1) {
+    if (index === this.length - 1) {
       return this.tail.data;
-    }
-    if (index >= this.length) {
-      return new Error("Out of range");
     }
     let currentVal = this.head;
     for (let i = 0; i < index; i++) {
@@ -80,11 +80,11 @@ const LinkedList = function() {
     return currentVal.data;
   };
 
-  this.popAtIndex = function(index) {
+  this.popAtIndex = function (index) {
     if (index >= this.length) {
-      return new Error("Out of range");
+      return null;
     }
-    if (index == 0) {
+    if (index === 0) {
       this.length--;
       const oldHead = this.head.data;
       this.head = this.head.next;
@@ -103,18 +103,17 @@ const LinkedList = function() {
     return deletedValue;
   };
 
-  this.print = function() {
+  this.print = function () {
     this.forEach(console.log);
   };
 
-  this.forEach = function(fn) {
+  this.forEach = function (fn) {
     let currentVal = this.head;
     while (currentVal) {
       fn(currentVal.data);
       currentVal = currentVal.next;
     }
   };
-
 };
 
 module.exports = { LinkedList };
