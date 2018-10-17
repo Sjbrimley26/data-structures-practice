@@ -59,14 +59,14 @@ const heapify = function(option) {
     let right = getRightChild(i);
     let root = i;
     if (option === "min") {
-      if (left < this.heap.length && this.heap[left] < this.heap[i]) {
+      if (left < this.heap.length && this.heap[left] < this.heap[root]) {
         root = left;
       }
       if (right < this.heap.length && this.heap[right] < this.heap[root]) {
         root = right;
       }
     } else {
-      if (left < this.heap.length && this.heap[left] > this.heap[i]) {
+      if (left < this.heap.length && this.heap[left] > this.heap[root]) {
         root = left;
       }
       if (right < this.heap.length && this.heap[right] > this.heap[root]) {
@@ -78,12 +78,14 @@ const heapify = function(option) {
       this.heapify(root);
     }
   };
-}
+};
+
+const contains = function (val) {
+  return this.heap.includes(val);
+};
 
 const getParent = index => Math.floor((index - 1) / 2);
-
 const getLeftChild = index => index * 2 + 1;
-
 const getRightChild = index => index * 2 + 2;
 
 const MinHeap = function () {
@@ -95,6 +97,7 @@ MinHeap.prototype.insert = insert("min");
 MinHeap.prototype.getMin = getRoot;
 MinHeap.prototype.extractMin = extractRoot;
 MinHeap.prototype.heapify = heapify("min");
+MinHeap.prototype.contains = contains;
 
 const MaxHeap = function() {
   this.heap = [];
@@ -105,6 +108,7 @@ MaxHeap.prototype.insert = insert("max");
 MaxHeap.prototype.getMax = getRoot;
 MaxHeap.prototype.extractMax = extractRoot;
 MaxHeap.prototype.heapify = heapify("max");
+MaxHeap.prototype.contains = contains;
 
 module.exports = {
   MinHeap,
