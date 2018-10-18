@@ -1,4 +1,4 @@
-const { MinHeap, MaxHeap } = require("./Heap");
+const { MaxHeap } = require("./Heap");
 
 const Node = function (data) {
   this.data = data;
@@ -115,19 +115,22 @@ SortedList.prototype.reverse = function () {
 };
 
 const list = new SortedList();
-const minHeap = new MinHeap();
 const maxHeap = new MaxHeap();
 
 const getRandom = (min, max) => (Math.random() * (max - min) >> 0) + min;
 
 const sampleArray = [];
-for (let i = 0; i < 10; i++) {
-  sampleArray.push(getRandom(0, 10));
+let searchVal;
+for (let i = 0; i < 15; i++) {
+  const random = getRandom(0, 6);
+  if (i == 5) {
+    searchVal = random;
+  }
+  sampleArray.push(random);
 }
 console.log(sampleArray);
 sampleArray.forEach(i => {
   list.push(i);
-  minHeap.insert(i);
   maxHeap.insert(i);
 });
 
@@ -135,9 +138,15 @@ const log = () => console.log(list.toArray());
 
 console.log("Length", list.length);
 log();
-console.log("Min Heap", minHeap.heap);
 console.log("Max Heap", maxHeap.heap);
-while (maxHeap.heap.length) {
-  console.log(maxHeap.extractMax());
-}
-console.log("Max Heap", maxHeap.heap);
+console.log("Min Heap", maxHeap.toMinHeap().heap);
+console.log("In-order");
+maxHeap.inOrder(console.log);
+console.log("Breadth-first");
+maxHeap.breadthFirst(console.log);
+console.log(
+  "Find",
+  searchVal,
+  maxHeap.indexOf(searchVal),
+  maxHeap.indexOf(searchVal, { depthFirst: true })
+);

@@ -1,3 +1,5 @@
+const { LLQueue } = require("./LLQueue");
+
 const validOptionCheck = option => {
   if (!["min", "max"].includes(option)) {
     throw new Error("Option must be min or max!");
@@ -84,6 +86,60 @@ const contains = function (val) {
   return this.heap.includes(val);
 };
 
+const inOrder = function (fn, i = 0) {
+  const node = i;
+  const left = getLeftChild(node);
+  const right = getRightChild(node);
+  left < this.heap.length && this.inOrder(fn, left);
+  fn(this.heap[i]);
+  right < this.heap.length && this.inOrder(fn, right);
+};
+
+// So it turns out that the heap is in breadth-first order all
+// the time so there's  no need for the queues and whatnot.
+const breadthFirst = function (fn) {
+  this.heap.forEach(item => fn(item));
+};
+
+const indexOf = function (val, {
+    depthFirst = false
+  } = {}) {
+    if (depthFirst) {
+      let found = -1;
+      let searchCount = 0;
+      const search = index => {
+        if (found >= 0) {
+          return;
+        }
+        searchCount++;
+        const left = getLeftChild(index);
+        const right = getRightChild(index);
+        left < this.heap.length && search(left);
+        if (this.heap[index] === val) {
+          found = index;
+          return;
+        }
+        right < this.heap.length && search(right);
+      };
+      search(0);
+      console.log("DFS Operations", searchCount);
+      return found;
+    }
+
+    // Breadth-first ftw
+    console.log("BFS Operations", this.heap.indexOf(val));
+    return this.heap.indexOf(val);
+};
+
+const changeHeapType = function (option) {
+  validOptionCheck(option);
+  return function () {
+    const heap = option === "min" ? new MaxHeap() : new MinHeap();
+    this.heap.forEach(val => heap.insert(val));
+    return heap;
+  };
+};
+
 const getParent = index => Math.floor((index - 1) / 2);
 const getLeftChild = index => index * 2 + 1;
 const getRightChild = index => index * 2 + 2;
@@ -98,6 +154,10 @@ MinHeap.prototype.getMin = getRoot;
 MinHeap.prototype.extractMin = extractRoot;
 MinHeap.prototype.heapify = heapify("min");
 MinHeap.prototype.contains = contains;
+MinHeap.prototype.inOrder = inOrder;
+MinHeap.prototype.breadthFirst = breadthFirst;
+MinHeap.prototype.indexOf = indexOf;
+MinHeap.prototype.toMaxHeap = changeHeapType("min");
 
 const MaxHeap = function() {
   this.heap = [];
@@ -109,6 +169,10 @@ MaxHeap.prototype.getMax = getRoot;
 MaxHeap.prototype.extractMax = extractRoot;
 MaxHeap.prototype.heapify = heapify("max");
 MaxHeap.prototype.contains = contains;
+MaxHeap.prototype.inOrder = inOrder;
+MaxHeap.prototype.breadthFirst = breadthFirst;
+MaxHeap.prototype.indexOf = indexOf;
+MaxHeap.prototype.toMinHeap = changeHeapType("max");
 
 module.exports = {
   MinHeap,
